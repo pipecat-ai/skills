@@ -1,0 +1,20 @@
+{
+  "name": "pipecat-skills",
+  "owner": {
+    "name": "Pipecat"
+  },
+  "metadata": {
+    "description": "Skills for building and deploying Pipecat applications",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "pipecat-cloud",
+      "description": "Skills for deploying and managing Pipecat applications on Pipecat Cloud",
+      "source": "./",
+      "skills": [
+        "./skills/deploy"
+      ]
+    }
+  ]
+}
