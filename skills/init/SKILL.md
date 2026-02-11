@@ -40,13 +40,11 @@ Use this data to populate the choices in every question below. Do NOT hardcode s
 
 ## Configuration Flow
 
-Walk through the following questions to build the project configuration. Use AskUserQuestion for each step. After collecting all answers, show a summary and run the command.
+Walk through the following questions to build the project configuration. After collecting all answers, show a summary and run the command.
 
-When using AskUserQuestion, present 3-4 popular options and let the user pick "Other" to specify any valid service from the full list. Suggested popular options:
-- STT: deepgram_stt, openai_stt, groq_stt
-- LLM: openai_llm, anthropic_llm, google_gemini_llm
-- TTS: cartesia_tts, elevenlabs_tts, openai_tts
-- Realtime: openai_realtime, gemini_live_realtime, ultravox
+**Choosing the right interaction method:**
+- **AskUserQuestion** — Use for questions with a small, fixed set of options (bot type, pipeline mode, client framework, yes/no questions). This gives a clean clickable UI.
+- **Show list as text** — Use for questions with many options (STT, LLM, TTS, realtime, video, transports). Display the full list of available options from `--list-options` formatted as a readable list, then let the user reply with their choice in chat.
 
 ### Step 1: Project Name
 
@@ -73,7 +71,7 @@ Skip this step entirely for telephony bots.
 
 ### Step 4: Transport
 
-Ask the user to choose a transport provider. Use the transports from `--list-options` filtered by the selected bot type.
+Show the user the full list of available transports from `--list-options`, filtered by the selected bot type. Let the user reply with their choice.
 
 If the user chose a `daily_pstn` transport, ask for mode:
 - Dial-in (receive calls) → use `--daily-pstn-mode dial-in`
@@ -93,12 +91,15 @@ Ask the user to choose a pipeline architecture:
 
 ### Step 6: AI Services
 
-**If cascade mode**, ask the user to choose each service using the options from `--list-options`:
-1. Speech-to-Text (STT)
-2. Language Model (LLM)
-3. Text-to-Speech (TTS)
+**If cascade mode**, show the full list of available options from `--list-options` for each service and let the user reply with their choice:
 
-**If realtime mode**, ask the user to choose a realtime service from the options.
+1. **Speech-to-Text (STT)** — Show all available STT services
+2. **Language Model (LLM)** — Show all available LLM services
+3. **Text-to-Speech (TTS)** — Show all available TTS services
+
+**If realtime mode**, show all available realtime services and let the user reply with their choice.
+
+For each service question, display the options as a numbered vertical list (one per line) so the user can easily scan and pick one.
 
 ### Step 7: Features
 
