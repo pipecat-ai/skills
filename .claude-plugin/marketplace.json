@@ -9,6 +9,14 @@
   },
   "plugins": [
     {
+      "name": "pipecat",
+      "description": "Skills for building Pipecat applications",
+      "source": "./",
+      "skills": [
+        "./skills/init"
+      ]
+    },
+    {
       "name": "pipecat-cloud",
       "description": "Skills for deploying and managing Pipecat applications on Pipecat Cloud",
       "source": "./",

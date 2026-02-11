@@ -10,9 +10,10 @@ Register this repository as a Claude Code Plugin marketplace:
 /plugin marketplace add pipecat-ai/skills
 ```
 
-Then install the plugin:
+Then install the plugins:
 
 ```
+/plugin install pipecat@pipecat-skills
 /plugin install pipecat-cloud@pipecat-skills
 ```
 
@@ -20,12 +21,29 @@ Or browse and install interactively:
 
 1. Select **Browse and install plugins**
 2. Select **pipecat-skills**
-3. Select **pipecat-cloud**
+3. Select **pipecat** or **pipecat-cloud**
 4. Select **Install now**
 
-## Skills
+## Plugins
 
-### Deploy (`/pipecat-cloud:deploy`)
+### pipecat
+
+Skills for building Pipecat applications.
+
+#### Init (`/pipecat:init`)
+
+Scaffold a new Pipecat project with guided setup. Walks you through choosing bot type, transport, AI services, features, and deployment options, then runs `pc init` to generate the project.
+
+```
+/pipecat:init
+/pipecat:init --output my-bot
+```
+
+### pipecat-cloud
+
+Skills for deploying and managing Pipecat applications on Pipecat Cloud.
+
+#### Deploy (`/pipecat-cloud:deploy`)
 
 Deploy an agent to [Pipecat Cloud](https://www.pipecat.ai/cloud). Walks through the full deployment process interactively:
 
