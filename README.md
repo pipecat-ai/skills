@@ -63,7 +63,7 @@ Requires a `pcc-deploy.toml` configuration file in your project.
 
 ### pipecat-mcp-server
 
-Skills for interacting with a Pipecat MCP server.
+Skills for interacting with a [Pipecat MCP server](https://github.com/pipecat-ai/pipecat-mcp-server).
 
 #### Talk (`/pipecat-mcp-server:talk`)
 
