@@ -15,13 +15,14 @@ Then install the plugins:
 ```
 /plugin install pipecat@pipecat-skills
 /plugin install pipecat-cloud@pipecat-skills
+/plugin install pipecat-mcp-server@pipecat-skills
 ```
 
 Or browse and install interactively:
 
 1. Select **Browse and install plugins**
 2. Select **pipecat-skills**
-3. Select **pipecat** or **pipecat-cloud**
+3. Select **pipecat**, **pipecat-cloud**, or **pipecat-mcp-server**
 4. Select **Install now**
 
 ## Plugins
@@ -59,3 +60,15 @@ Deploy an agent to [Pipecat Cloud](https://www.pipecat.ai/cloud). Walks through 
 ```
 
 Requires a `pcc-deploy.toml` configuration file in your project.
+
+### pipecat-mcp-server
+
+Skills for interacting with a Pipecat MCP server.
+
+#### Talk (`/pipecat-mcp-server:talk`)
+
+Start a voice conversation using the Pipecat MCP server. Initializes a voice agent that you can connect to via Pipecat Playground, Daily room, or phone call, and interact with using natural speech.
+
+```
+/pipecat-mcp-server:talk
+```
