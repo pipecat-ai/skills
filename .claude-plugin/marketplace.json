@@ -11,6 +11,7 @@
     {
       "name": "pipecat",
       "description": "Skills for building Pipecat applications",
+      "version": "1.0.0",
       "source": "./",
       "skills": [
         "./skills/init"
@@ -19,9 +20,19 @@
     {
       "name": "pipecat-cloud",
       "description": "Skills for deploying and managing Pipecat applications on Pipecat Cloud",
+      "version": "1.0.0",
       "source": "./",
       "skills": [
         "./skills/deploy"
+      ]
+    },
+    {
+      "name": "pipecat-mcp-server",
+      "description": "Skills for interacting with a Pipecat MCP server",
+      "version": "1.0.0",
+      "source": "./",
+      "skills": [
+        "./skills/talk"
       ]
     }
   ]
