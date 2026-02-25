@@ -27,20 +27,6 @@
       ]
     },
     {
-      "name": "pipecat-dev",
-      "description": "Development workflow skills for contributing to the Pipecat project",
-      "version": "1.0.0",
-      "source": "./",
-      "skills": [
-        "./skills/changelog",
-        "./skills/cleanup",
-        "./skills/code-review",
-        "./skills/docstring",
-        "./skills/pr-description",
-        "./skills/pr-submit"
-      ]
-    },
-    {
       "name": "pipecat-mcp-server",
       "description": "Skills for interacting with a Pipecat MCP server",
       "version": "1.0.0",

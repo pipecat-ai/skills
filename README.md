@@ -15,7 +15,6 @@ Then install the plugins:
 ```
 /plugin install pipecat@pipecat-skills
 /plugin install pipecat-cloud@pipecat-skills
-/plugin install pipecat-dev@pipecat-skills
 /plugin install pipecat-mcp-server@pipecat-skills
 ```
 
@@ -23,7 +22,7 @@ Or browse and install interactively:
 
 1. Select **Browse and install plugins**
 2. Select **pipecat-skills**
-3. Select **pipecat**, **pipecat-cloud**, **pipecat-dev**, or **pipecat-mcp-server**
+3. Select **pipecat**, **pipecat-cloud**, or **pipecat-mcp-server**
 4. Select **Install now**
 
 ## Plugins
@@ -61,60 +60,6 @@ Deploy an agent to [Pipecat Cloud](https://www.pipecat.ai/cloud). Walks through 
 ```
 
 Requires a `pcc-deploy.toml` configuration file in your project.
-
-### pipecat-dev
-
-Development workflow skills for contributing to the Pipecat project.
-
-#### Changelog (`/pipecat-dev:changelog`)
-
-Create changelog files for important commits in a PR. Categorizes changes by type (added, changed, fixed, deprecated, removed, security, performance) and generates files in the `changelog/` directory.
-
-```
-/pipecat-dev:changelog <pr_number>
-```
-
-#### Cleanup (`/pipecat-dev:cleanup`)
-
-Review, refactor, and document code changes in your current branch. Analyzes uncommitted and outgoing changes for readability, performance, documentation, and consistency with Pipecat patterns.
-
-```
-/pipecat-dev:cleanup
-```
-
-#### Code Review (`/pipecat-dev:code-review`)
-
-Automated code review for pull requests. Uses multiple specialized agents to check for bugs, logic errors, and CLAUDE.md compliance, posting inline comments on the PR.
-
-```
-/pipecat-dev:code-review <pr_number>
-```
-
-#### Docstring (`/pipecat-dev:docstring`)
-
-Document a Python module or class using Google-style docstrings following Pipecat conventions.
-
-```
-/pipecat-dev:docstring <ClassName>
-/pipecat-dev:docstring <module_path>
-```
-
-#### PR Description (`/pipecat-dev:pr-description`)
-
-Update a GitHub PR description with a summary of changes, breaking changes, testing instructions, and linked issues.
-
-```
-/pipecat-dev:pr-description <pr_number>
-/pipecat-dev:pr-description <pr_number> --fixes 123,456
-```
-
-#### PR Submit (`/pipecat-dev:pr-submit`)
-
-Create and submit a GitHub PR from the current branch. Handles branching, committing, pushing, and automatically runs changelog and PR description generation.
-
-```
-/pipecat-dev:pr-submit
-```
 
 ### pipecat-mcp-server
 
