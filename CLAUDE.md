@@ -10,15 +10,16 @@ A Claude Code plugin marketplace (`pipecat-skills`) containing skills for buildi
 
 This repo follows the Claude Code plugin marketplace pattern (same as `anthropics/skills`):
 
-- `.claude-plugin/marketplace.json` — Marketplace manifest. Defines two plugins that each select skills from the shared `skills/` directory.
+- `.claude-plugin/marketplace.json` — Marketplace manifest. Defines plugins that each select skills from the shared `skills/` directory.
 - `skills/<name>/SKILL.md` — Each skill is a directory with a `SKILL.md` file containing frontmatter (`name`, `description`) and instructions that Claude follows when the skill is invoked.
 
 ### Plugins
 
-The marketplace exposes two plugins:
+The marketplace exposes three plugins:
 
 - **`pipecat`** — General Pipecat development skills (e.g. `init`). Invoked as `/pipecat:<skill>`.
 - **`pipecat-cloud`** — Pipecat Cloud deployment skills (e.g. `deploy`). Invoked as `/pipecat-cloud:<skill>`.
+- **`pipecat-mcp-server`** — Pipecat MCP server skills (e.g. `talk`). Invoked as `/pipecat-mcp-server:<skill>`.
 
 When adding a new skill, create `skills/<name>/SKILL.md` and add it to the appropriate plugin's `skills` array in `marketplace.json`.
 
