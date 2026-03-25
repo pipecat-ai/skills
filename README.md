@@ -46,12 +46,10 @@ Skills for deploying and managing Pipecat applications on Pipecat Cloud.
 
 #### Deploy (`/pipecat-cloud:deploy`)
 
-Deploy an agent to [Pipecat Cloud](https://www.pipecat.ai/cloud). Walks through the full deployment process interactively:
+Deploy an agent to [Pipecat Cloud](https://www.pipecat.ai/cloud). Walks through the full deployment process interactively with two deployment options:
 
-1. Verifies prerequisites (Pipecat Cloud CLI, Docker, authentication)
-2. Creates or updates secrets from a `.env` file
-3. Builds and pushes the Docker image
-4. Deploys the agent
+- **Cloud Build (Recommended)**: Pipecat Cloud builds your Docker image from source — no local Docker required.
+- **Self-managed image**: Build and push your own Docker image, then deploy.
 
 ```
 /pipecat-cloud:deploy
