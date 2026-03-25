@@ -53,9 +53,11 @@ Several `pc cloud` commands prompt for interactive confirmation which doesn't wo
 
 This path uses Pipecat Cloud to build your Docker image from source. No local Docker installation is required.
 
-### Step 1: Verify Dockerfile
+### Step 1: Verify Dockerfile and Lockfile
 
 Check that a `Dockerfile` exists in the build context directory (the directory containing `pcc-deploy.toml`, or the `context_dir` from the `[build]` section of the config). If no Dockerfile is found, tell the user they need one and stop.
+
+If the Dockerfile references `uv` (e.g., `uv sync`, `uv pip install`, `COPY uv.lock`), check that a `uv.lock` file exists in the build context directory. If it doesn't exist, run `uv lock` to generate it. If it already exists, run `uv lock` to ensure it's up to date. The lockfile must be present and current because cloud builds run remotely and cannot generate it.
 
 ### Step 2: Secrets Setup
 
