@@ -23,7 +23,8 @@
       "version": "1.0.0",
       "source": "./",
       "skills": [
-        "./skills/deploy"
+        "./skills/deploy",
+        "./skills/debug"
       ]
     },
     {
