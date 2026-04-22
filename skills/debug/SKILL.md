@@ -111,17 +111,16 @@ Surface 2-4 candidate root causes ranked by likelihood, each with: the matching 
 
 ## Debugging Calls: Audio Not Coming Through
 
-Check the Pipecat logs first. If the agent logs look clean but the user reports an audio issue (nothing coming through, one-way audio, robotic/choppy audio) and the call uses Daily WebRTC transport, follow up by pulling Daily's call logs. The Pipecat agent sees its own process; Daily sees the transport layer and the participant side.
+Only run this section when **all** of the following are true:
+- The user reports a call-side audio problem (nothing coming through, one-way audio, robotic/choppy audio).
+- The Pipecat agent logs look clean (no exceptions, no transport errors).
+- The call uses Daily WebRTC transport.
 
-1. Grab the Daily session ID (`mtgSessionId`) for the call. If you only have a Pipecat Cloud session ID, run `pc cloud agent sessions <AGENT> --id <SESSION_ID>` and read the Daily meeting IDs from the `meetingIds` array.
-2. Hit `https://api.daily.co/v1/logs` with `DAILY_API_KEY` as a bearer token. Include `includeMetrics=true` for packet loss and candidate-pair stats.
+The Pipecat agent sees its own process. Daily sees the transport layer and the participant side. When the agent looks healthy but the caller didn't hear anything, the answer usually lives in Daily's logs.
 
-```bash
-curl -s -H "Authorization: Bearer $DAILY_API_KEY" \
-  "https://api.daily.co/v1/logs?mtgSessionId=<DAILY_SESSION_ID>&includeMetrics=true&limit=500"
-```
+Bridge the session IDs: if you only have a Pipecat Cloud session ID, extract the Daily `meetingIds` from the `pc cloud agent sessions <AGENT> --id <SESSION_ID>` output. Reuse the output from the Debug Report Template step if you already fetched it.
 
-The Daily API key for a Pipecat Cloud project lives at `https://pipecat.daily.co/$ORG/settings/keys#daily`. See `references/rest-api.md` for the full parameter list.
+Then hit Daily's `/logs` endpoint with `DAILY_API_KEY`. See `references/rest-api.md` for the endpoint, parameters, and a ready-to-run curl example. For audio investigations, include `includeMetrics=true` (transport and candidate-pair stats) and filter with `logLevel=ERROR` first; only widen the window if nothing relevant surfaces.
 
 ## REST API
 

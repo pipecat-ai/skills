@@ -92,11 +92,12 @@ One of `mtgSessionId` or `userSessionId` is required.
 
 ```bash
 curl -s -H "Authorization: Bearer $DAILY_API_KEY" \
-  "https://api.daily.co/v1/logs?mtgSessionId=7a99abff-0047-4b27-c6c1-49b4ec46f1de&includeMetrics=true&limit=500"
+  "https://api.daily.co/v1/logs?mtgSessionId=d1b8bd9a-bf28-4ac0-9e61-020ea0b3e27b&includeMetrics=true&logLevel=ERROR&limit=100"
 ```
 
 ### Notes
 
-- Data collection starts once a second participant joins. First sample lands ~15s in, then every 15s.
+- Data collection starts once a second participant joins. First sample lands ~15s in, then every 15s. A single call can produce thousands of metric records.
+- Default `limit` is 20; start small (e.g., `limit=100` with `logLevel=ERROR`) and page with `offset` if you need more. Pulling hundreds of unfiltered records is rarely useful.
 - Pipecat Cloud session IDs (`sessionId`) are **not** the same as Daily session IDs (`mtgSessionId`). If you only have a PCC session ID, pull the Daily meeting IDs from `GET /agents/{agentName}/sessions/{sessionId}` first (the `meetingIds` array).
 - Use `includeMetrics=true` when debugging connectivity or audio quality. That's where packet loss and candidate-pair stats live.
