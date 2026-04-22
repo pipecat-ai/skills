@@ -54,7 +54,7 @@ Three input modes, in priority order:
 Verify these before fetching logs. If any fails, stop and explain what to fix.
 
 1. **Pipecat Cloud CLI**: Run `pc --version`. If missing, tell the user to install with `uv tool install pipecat-ai-cli`.
-2. **Authentication**: Run `pc cloud auth whoami`. If not authenticated, ask the user to run `pc cloud auth login` themselves -- in Claude Code they can use the `!pc cloud auth login` prompt-prefix so the interactive browser flow runs in their shell. Wait for them to confirm before proceeding. (The CLI has no `--headless` flag; login opens a browser and completes locally.)
+2. **Authentication**: Run `pc cloud auth whoami`. If not authenticated, run `pc cloud auth login --headless` as a background task, extract the URL and six-digit code from the output file, and share both with the user. Wait for completion before proceeding.
 
 ## Resolving the Agent Name (remote only)
 
@@ -109,22 +109,9 @@ Analysis is docs-first. The pattern list below is a fallback, not the primary me
 
 Surface 2-4 candidate root causes ranked by likelihood, each with: the matching log line(s), what it typically means, and a next step.
 
-## Debugging Calls: Audio Not Coming Through
-
-Only run this section when **all** of the following are true:
-- The user reports a call-side audio problem (nothing coming through, one-way audio, robotic/choppy audio).
-- The Pipecat agent logs look clean (no exceptions, no transport errors).
-- The call uses Daily WebRTC transport.
-
-The Pipecat agent sees its own process. Daily sees the transport layer and the participant side. When the agent looks healthy but the caller didn't hear anything, the answer usually lives in Daily's logs.
-
-Bridge the session IDs: if you only have a Pipecat Cloud session ID, extract the Daily `meetingIds` from the `pc cloud agent sessions <AGENT> --id <SESSION_ID>` output. Reuse the output from the Debug Report Template step if you already fetched it.
-
-Then hit Daily's `/logs` endpoint with `DAILY_API_KEY`. See `references/rest-api.md` for the endpoint, parameters, and a ready-to-run curl example. For audio investigations, include `includeMetrics=true` (transport and candidate-pair stats) and filter with `logLevel=ERROR` first; only widen the window if nothing relevant surfaces.
-
 ## REST API
 
-The CLI wraps a REST endpoint. For details on using it directly (e.g., for scripting or when the CLI is unavailable), see `references/rest-api.md`. That file also documents Daily's `/logs` endpoint for call-side debugging.
+The CLI wraps a REST endpoint. For details on using it directly (e.g., for scripting or when the CLI is unavailable), see `references/rest-api.md`.
 
 ## Completion
 
