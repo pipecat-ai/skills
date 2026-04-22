@@ -109,9 +109,23 @@ Analysis is docs-first. The pattern list below is a fallback, not the primary me
 
 Surface 2-4 candidate root causes ranked by likelihood, each with: the matching log line(s), what it typically means, and a next step.
 
+## Debugging Calls: Audio Not Coming Through
+
+Check the Pipecat logs first. If the agent logs look clean but the user reports an audio issue (nothing coming through, one-way audio, robotic/choppy audio) and the call uses Daily WebRTC transport, follow up by pulling Daily's call logs. The Pipecat agent sees its own process; Daily sees the transport layer and the participant side.
+
+1. Grab the Daily session ID (`mtgSessionId`) for the call. If you only have a Pipecat Cloud session ID, run `pc cloud agent sessions <AGENT> --id <SESSION_ID>` and read the Daily meeting IDs from the `meetingIds` array.
+2. Hit `https://api.daily.co/v1/logs` with `DAILY_API_KEY` as a bearer token. Include `includeMetrics=true` for packet loss and candidate-pair stats.
+
+```bash
+curl -s -H "Authorization: Bearer $DAILY_API_KEY" \
+  "https://api.daily.co/v1/logs?mtgSessionId=<DAILY_SESSION_ID>&includeMetrics=true&limit=500"
+```
+
+The Daily API key for a Pipecat Cloud project lives at `https://pipecat.daily.co/$ORG/settings/keys#daily`. See `references/rest-api.md` for the full parameter list.
+
 ## REST API
 
-The CLI wraps a REST endpoint. For details on using it directly (e.g., for scripting or when the CLI is unavailable), see `references/rest-api.md`.
+The CLI wraps a REST endpoint. For details on using it directly (e.g., for scripting or when the CLI is unavailable), see `references/rest-api.md`. That file also documents Daily's `/logs` endpoint for call-side debugging.
 
 ## Completion
 
