@@ -102,29 +102,15 @@ Analysis is docs-first. The pattern list below is a fallback, not the primary me
 3. **Fall back to pattern matching**: If the docs don't surface a match, check against these common patterns:
    - **Cold start / image pull failures**: `ImagePullBackOff`, `ErrImagePull`, long gaps before "Application startup complete". Cross-region ECR pulls can cause this.
    - **OOM / resource limits**: `OOMKilled`, `Memory cgroup out of memory`, process termination without clean shutdown.
-   - **Transport / WebRTC errors**: Daily transport failures, ICE connection errors, `CGNAT`-related signals.
    - **LLM / STT / TTS provider errors**: Auth failures, rate limits, timeouts from OpenAI / Cartesia / Deepgram / etc.
    - **Bot function errors**: Unhandled exceptions, traceback blocks, `await` errors in the pipeline.
    - **Graceful shutdown vs crash**: `Application shutdown complete` is clean; missing shutdown logs after a client disconnect suggests a crash.
 
 Surface 2-4 candidate root causes ranked by likelihood, each with: the matching log line(s), what it typically means, and a next step.
 
-## Debugging Calls: Audio Not Coming Through
-
-Only run this section when **all** of the following are true:
-- The user reports a call-side audio problem (nothing coming through, one-way audio, robotic/choppy audio).
-- The Pipecat agent logs look clean (no exceptions, no transport errors).
-- The call uses Daily WebRTC transport.
-
-The Pipecat agent sees its own process. Daily sees the transport layer and the participant side. When the agent looks healthy but the caller didn't hear anything, the answer usually lives in Daily's logs.
-
-Bridge the session IDs: if you only have a Pipecat Cloud session ID, extract the Daily `meetingIds` from the `pc cloud agent sessions <AGENT> --id <SESSION_ID>` output. Reuse the output from the Debug Report Template step if you already fetched it.
-
-Then hit Daily's `/logs` endpoint with `DAILY_API_KEY`. See `references/rest-api.md` for the endpoint, parameters, and a ready-to-run curl example. For audio investigations, include `includeMetrics=true` (transport and candidate-pair stats) and filter with `logLevel=ERROR` first; only widen the window if nothing relevant surfaces.
-
 ## REST API
 
-The CLI wraps a REST endpoint. For details on using it directly (e.g., for scripting or when the CLI is unavailable), see `references/rest-api.md`. That file also documents Daily's `/logs` endpoint for call-side debugging.
+The CLI wraps a REST endpoint. For details on using it directly (e.g., for scripting or when the CLI is unavailable), see `references/rest-api.md`.
 
 ## Completion
 
@@ -182,9 +168,9 @@ Then produce a report using this template. Fill in every field from the data you
 
 ### Filling in the template
 
-- **Status**: Use "Resolved" if you identified a clear fix, "Investigating" if the cause is uncertain, "Needs escalation" if it requires action from Daily support or the Pipecat team.
+- **Status**: Use "Resolved" if you identified a clear fix, "Investigating" if the cause is uncertain, "Needs escalation" if it requires action from the Pipecat team.
 - **Time window / Completion status / Cold start**: Pull from `pc cloud agent sessions <AGENT> --id <SESSION_ID>`. If unavailable (local file, no session ID), mark as "N/A".
 - **Log Timeline**: Extract the 5-10 most important events in chronological order. Focus on state transitions (startup, connection, errors, shutdown), not routine log lines.
 - **Resource Analysis**: Populate from session metadata (CPU/memory percentiles). If unavailable, write "No metrics available -- run `pc cloud agent sessions <AGENT> --id <SESSION_ID>` to check CPU/memory percentiles."
 - **Matching Known Issues**: Query the Pipecat Docs MCP server (or docs site) with the root cause symptoms. Include any matching docs links. If nothing matches, say so explicitly.
-- **Recommended Next Steps**: Be specific. Name the exact config change, CLI command, or where to escalate (e.g., "Post in the Pipecat Discord #pipecat-help channel with session ID and log excerpts", "Contact Daily support at help@daily.co"). Avoid generic advice like "check the logs."
+- **Recommended Next Steps**: Be specific. Name the exact config change, CLI command, or where to escalate (e.g., "Post in the Pipecat Discord #pipecat-help channel with session ID and log excerpts"). Avoid generic advice like "check the logs."
